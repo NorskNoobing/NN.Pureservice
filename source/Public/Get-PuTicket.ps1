@@ -4,7 +4,7 @@ function Get-PuTicket {
         [Parameter(Mandatory,ParameterSetName="Get ticket by id")][int]$ticketId,
         [Parameter(Mandatory,ParameterSetName="Get ticket by requestnumber")][int]$requestNumber,
         [string]$filter,
-        [Parameter(ParameterSetName="List tickets")][switch]$ListTickets
+        [Parameter(ParameterSetName="List tickets",DontShow)][switch]$ListTickets
     )
 
     $Uri = "$(Get-PuEndpoint)/ticket"
@@ -24,6 +24,7 @@ function Get-PuTicket {
         "Headers" = @{
             "X-Authorization-Key" = Get-PuAccessToken
             "Accept" = "application/vnd.api+json"
+            "Content-Type" = "application/vnd.api+json"
         }
         "Body" = @{
             "filter" = $filter
